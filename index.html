@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Forgive Me!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            margin: 20px;
+        }
+        
+        h1 {
+            color: #e74c3c;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .heart {
+            color: #e74c3c;
+            font-size: 100px;
+            margin: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        .reasons {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            background-color: #2980b9;
+        }
+        
+        .no-button {
+            background-color: #e74c3c;
+            position: relative;
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .gifts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .gift {
+            margin: 10px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .gift:hover {
+            transform: scale(1.05);
+        }
+        
+        .gift img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f44336;
+            border-radius: 50%;
+            animation: fall 4s linear infinite;
+        }
+        
+        .forgiveness-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.3rem;
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ademir, I'm Really Sorry!</h1>
+        <div class="heart">❤️</div>
+        <p>I know I messed up, and I feel terrible about it. Please find it in your heart to forgive me!</p>
+        
+        <div class="reasons">
+            <h2>Reasons You Should Forgive Me:</h2>
+            <p>✓ I promise it won't happen again</p>
+            <p>✓ I've learned my lesson</p>
+            <p>✓ Remember all the good times we've had on the server</p>
+            <p>✓ Everyone makes mistakes :P</p>
+            <p>✓ I miss being your favorite manager!</p>
+        </div>
+        
+        <h2>Choose a Gift as My Apology</h2>
+        <div class="gifts">
+            <div class="gift" onclick="showMessage('Thank you for accepting my virtual flowers! 🌺')">
+                <img src="/api/placeholder/100/100" alt="Flowers">
+                <p>Flowers</p>
+            </div>
+            <div class="gift" onclick="showMessage('Enjoy your imaginary chocolate! It has zero calories! 🍫')">
+                <img src="/api/placeholder/100/100" alt="Chocolate">
+                <p>Chocolate</p>
+            </div>
+            <div class="gift" onclick="showMessage('This virtual hug is sent with all my love! 🤗')">
+                <img src="/api/placeholder/100/100" alt="Hug">
+                <p>Hug</p>
+            </div>
+        </div>
+        
+        <div class="forgiveness-message" id="forgivenessMessage">
+            Thank you for forgiving me! You're the best Ademir in the world! ❤️
+        </div>
+        
+        <h2>Do You Forgive Me?</h2>
+        <div class="buttons-container">
+            <button id="yesButton" onclick="forgiven()">Yes, I Forgive You</button>
+            <button id="noButton" class="no-button" onmouseover="moveButton()">No, Not Yet</button>
+        </div>
+    </div>
+    
+    <script>
+        function moveButton() {
+            const button = document.getElementById('noButton');
+            const maxX = window.innerWidth - button.offsetWidth;
+            const maxY = window.innerHeight - button.offsetHeight;
+            
+            // Calculate new position
+            const newX = Math.floor(Math.random() * maxX);
+            const newY = Math.floor(Math.random() * maxY);
+            
+            // Apply new position
+            button.style.position = 'fixed';
+            button.style.left = newX + 'px';
+            button.style.top = newY + 'px';
+        }
+        
+        function forgiven() {
+            // Show forgiveness message
+            document.getElementById('forgivenessMessage').style.display = 'block';
+            
+            // Create confetti
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+            
+            // Make the heart bigger
+            document.querySelector('.heart').style.fontSize = '150px';
+        }
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Random position
+            confetti.style.left = Math.random() * 100 + 'vw';
+            
+            // Random color
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random size
+            const size = Math.random() * 10 + 5;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            
+            // Random animation duration
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.body.appendChild(confetti);
+            
+            // Remove confetti after animation completes
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        
+        function showMessage(message) {
+            const forgivenessMessage = document.getElementById('forgivenessMessage');
+            forgivenessMessage.textContent = message;
+            forgivenessMessage.style.display = 'block';
+            
+            // Create some confetti for gifts too
+            for (let i = 0; i < 20; i++) {
+                createConfetti();
+            }
+        }
+    </script>
+</body>
+</html>
