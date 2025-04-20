@@ -104,7 +104,7 @@
             transform: scale(1.05);
         }
         
-        .gift img {
+        .gift .emojis {
             width: 100px;
             height: 100px;
             object-fit: cover;
@@ -173,15 +173,15 @@
         <h2>Choose a Gift as My Apology</h2>
         <div class="gifts">
             <div class="gift" onclick="showMessage('Thank you for accepting my virtual flowers! 🌺')">
-                <img src="/api/placeholder/100/100" alt="Flowers">
+                <div class="emojis">🌹</div>
                 <p>Flowers</p>
             </div>
             <div class="gift" onclick="showMessage('Enjoy your imaginary chocolate! It has zero calories! 🍫')">
-                <img src="/api/placeholder/100/100" alt="Chocolate">
+                <div class="emojis">🍫</div>
                 <p>Chocolate</p>
             </div>
             <div class="gift" onclick="showMessage('This virtual hug is sent with all my love! 🤗')">
-                <img src="/api/placeholder/100/100" alt="Hug">
+                <div class="emojis">🫂</div>
                 <p>Hug</p>
             </div>
         </div>
