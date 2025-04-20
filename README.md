@@ -1,2 +1,2 @@
 # pardon
-Created to ask forgiveness for an important person.
+Created to ask for forgiveness to an important person.
